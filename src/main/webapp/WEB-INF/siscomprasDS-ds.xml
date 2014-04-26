@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<datasources xmlns="http://www.jboss.org/ironjacamar/schema">
+	<datasource jndi-name="java:jboss/datasources/siscomprasDS"
+		enabled="true" use-java-context="true" pool-name="siscomprasDS">
+		<connection-url>jdbc:postgresql://localhost:5432/siscompras</connection-url>
+		<driver-class>org.postgresql.Driver</driver-class>
+		<driver>postgresql-9.1-901-1.jdbc4.jar</driver>
+		<pool></pool>
+		<security>
+			<user-name>pjamil</user-name>
+			<password>1525pj</password>
+		</security>
+	</datasource>
+</datasources>
