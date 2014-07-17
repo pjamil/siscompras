@@ -17,3 +17,14 @@
 
 -- You can use this file to load seed data into the database using SQL statements
 insert into Member (id, name, email, phone_number) values (0, 'John Smith', 'john.smith@mailinator.com', '2125551212') 
+
+INSERT INTO "public"."categoria_produto" (categoria_produto_id,versao,descricao) VALUES (1, 1,'BEBIDAS')
+INSERT INTO "public"."categoria_produto" (categoria_produto_id,versao,descricao) VALUES (2, 1,'SANDUICHES')
+
+INSERT INTO "public"."tipo_produto" (tipo_produto_id,versao,descricao) VALUES (1 /*not nullable*/,1 /*not nullable*/,'VENDA' /*not nullable*/);
+INSERT INTO "public"."tipo_produto" (tipo_produto_id,versao,descricao) VALUES (2 /*not nullable*/,1 /*not nullable*/,'COMPRA' /*not nullable*/);
+
+INSERT INTO "public"."unidade_medida" (unidade_medida_id,versao,abreviacao,descricao) VALUES (1 /*not nullable*/,1 /*not nullable*/,'UN' /*not nullable*/,'UNIDADE' /*not nullable*/);
+INSERT INTO "public"."unidade_medida" (unidade_medida_id,versao,abreviacao,descricao) VALUES (2 /*not nullable*/,1 /*not nullable*/,'CX' /*not nullable*/,'CAIXA' /*not nullable*/);
+
+INSERT INTO "public"."produto" (produto_id,versao,caracteristicas,codigo,codigo_barras,consumo_aquisicao,consumo_medio,descricao,estoque_maximo,estoque_minimo,nome,ponto_pedido,preco_compra,preco_custo,preco_medio,preco_venda,procedimentos_recebimento,utilizacao_produto,categoria_produto_id,tipo_produto_id,unidade_medida_id) VALUES (1 /*not nullable*/,1 /*not nullable*/,'CARACTERISTICA','CODIGO' /*not nullable*/,101011,10,15,'DESCRICAO PRODUTO',50,10,'NOME' /*not nullable*/,10,1.50,1.75,1.60,2.50,'PROCEDIMENTOS RECEBIMENTO','UTILIZACAO PRODUTO',1 /*not nullable*/,1 /*not nullable*/,1 /*not nullable*/);
