@@ -1,12 +1,10 @@
 package br.com.pjsistemas.app.siscompras.dao.impl;
 
 import java.util.List;
-import java.util.logging.Logger;
 
 import javax.ejb.Stateless;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
-import javax.persistence.EntityManager;
 
 import br.com.pjsistemas.app.siscompras.dao.ProdutoDao;
 import br.com.pjsistemas.app.siscompras.model.CategoriaProduto;
@@ -18,34 +16,21 @@ import br.com.pjsistemas.app.siscompras.model.TipoProduto;
 import br.com.pjsistemas.app.siscompras.model.UnidadeMedida;
 
 @Stateless
-public class ProdutoDaoBean implements ProdutoDao {
+public class ProdutoDaoBean extends JpaDaoGenerico<Produto> implements ProdutoDao {
 
-	@Inject
-	private Logger log;
-	
-	@Inject
-	EntityManager entityManager;
-	
 	@Inject
 	private Event<Produto> produtoEventSrc;
 
 	@Override
-	public void inserirProduto(Produto produto) {
-		log.info("Inserindo Produto : " + produto.getNome());
-		entityManager.persist(produto);
+	public void salvarProduto(Produto produto) {
+		getLog().info("Salvando Produto : " + produto.getNome());
+		super.salvarEntidade(produto);
 		produtoEventSrc.fire(produto);
-	}
-
-	@Override
-	public void atualizarProduto(Produto produto) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void excluirProduto(Produto produto) {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
@@ -102,6 +87,11 @@ public class ProdutoDaoBean implements ProdutoDao {
 	public List<Imposto> selecionarImpostosProduto(Produto produto) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	protected Class<Produto> getClasseEntidade() {
+		return Produto.class;
 	}
 
 }
