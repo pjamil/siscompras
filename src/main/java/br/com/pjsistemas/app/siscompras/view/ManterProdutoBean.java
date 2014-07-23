@@ -5,8 +5,13 @@ package br.com.pjsistemas.app.siscompras.view;
 
 import java.io.Serializable;
 
-import javax.enterprise.context.ConversationScoped;
+import javax.annotation.PostConstruct;
+import javax.enterprise.context.RequestScoped;
+import javax.enterprise.inject.Produces;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import br.com.pjsistemas.app.siscompras.facade.ManterProdutoFacade;
 import br.com.pjsistemas.app.siscompras.model.Produto;
@@ -14,7 +19,8 @@ import br.com.pjsistemas.app.siscompras.model.Produto;
 /**
  * View para o cadastro de {@link Produto}
  */
-@ConversationScoped
+@Named("manterProdutoBean")
+@RequestScoped
 public class ManterProdutoBean implements Serializable {
 
 	/**
@@ -22,20 +28,25 @@ public class ManterProdutoBean implements Serializable {
 	 */
 	private static final long serialVersionUID = -8482479271582213787L;
 
+	@Inject
+	private FacesContext facesContext;
+
 	/**
 	 * {@link Produto} sendo incluido ou editado.
 	 */
-	private Produto produto;
+	@Produces
+	@Named
+	private Produto produtoNovo;
 
 	@Inject
 	private ManterProdutoFacade manterProdutoFacade;
 
 	public Produto getProduto() {
-		return produto;
+		return produtoNovo;
 	}
 
 	public void setProduto(Produto produto) {
-		this.produto = produto;
+		this.produtoNovo = produto;
 	}
 
 	public ManterProdutoFacade getManterProdutoFacade() {
@@ -47,12 +58,47 @@ public class ManterProdutoBean implements Serializable {
 	}
 
 	public String novo() {
-		this.produto = new Produto();
+		this.produtoNovo = new Produto();
 		return "null";
 	}
 
-	public void salvar() {
-		manterProdutoFacade.salvarProduto(produto);
+	@PostConstruct
+	public void initProdutoNovo() {
+		produtoNovo = new Produto();
+	}
+
+	public void salvar() throws Exception {
+		try {
+			manterProdutoFacade.salvarProduto(produtoNovo);
+			final FacesMessage m = new FacesMessage(FacesMessage.SEVERITY_INFO,
+					"Registered!", "Registration successful");
+			facesContext.addMessage(null, m);
+			initProdutoNovo();
+		} catch (final Exception e) {
+			final String errorMessage = getRootErrorMessage(e);
+			final FacesMessage m = new FacesMessage(
+					FacesMessage.SEVERITY_ERROR, errorMessage,
+					"Registration unsuccessful");
+			facesContext.addMessage(null, m);
+		}
+	}
+
+	private String getRootErrorMessage(Exception e) {
+		// Default to general error message that registration failed.
+		String errorMessage = "Registration failed. See server log for more information";
+		if (e == null) {
+			// This shouldn't happen, but return the default messages
+			return errorMessage;
+		}
+		// Start with the exception and recurse to find the root cause
+		Throwable t = e;
+		while (t != null) {
+			// Get the message from the Throwable class instance
+			errorMessage = t.getLocalizedMessage();
+			t = t.getCause();
+		}
+		// This is the root cause message
+		return errorMessage;
 	}
 
 }
