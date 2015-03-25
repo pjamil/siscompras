@@ -4,9 +4,10 @@
 package br.com.pjsistemas.app.siscompras.view;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.ConversationScoped;
 import javax.enterprise.inject.Produces;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -20,7 +21,7 @@ import br.com.pjsistemas.app.siscompras.model.Produto;
  * View para o cadastro de {@link Produto}
  */
 @Named("manterProdutoBean")
-@RequestScoped
+@ConversationScoped
 public class ManterProdutoBean implements Serializable {
 
 	/**
@@ -41,22 +42,7 @@ public class ManterProdutoBean implements Serializable {
 	@Inject
 	private ManterProdutoFacade manterProdutoFacade;
 
-	public Produto getProduto() {
-		return produtoNovo;
-	}
-
-	public void setProduto(Produto produto) {
-		this.produtoNovo = produto;
-	}
-
-	public ManterProdutoFacade getManterProdutoFacade() {
-		return manterProdutoFacade;
-	}
-
-	public void setManterProdutoFacade(ManterProdutoFacade manterProdutoFacade) {
-		this.manterProdutoFacade = manterProdutoFacade;
-	}
-
+	// verificar se sai da classe
 	public String novo() {
 		this.produtoNovo = new Produto();
 		return "null";
@@ -99,6 +85,14 @@ public class ManterProdutoBean implements Serializable {
 		}
 		// This is the root cause message
 		return errorMessage;
+	}
+
+	@Produces
+	@Named
+	public List<Produto> getProdutos() {
+		final List<Produto> produtos = manterProdutoFacade.selecionarProdutos();
+
+		return produtos;
 	}
 
 }

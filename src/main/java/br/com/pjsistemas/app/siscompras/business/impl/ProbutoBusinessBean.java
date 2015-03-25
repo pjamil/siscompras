@@ -3,30 +3,37 @@
  */
 package br.com.pjsistemas.app.siscompras.business.impl;
 
-import javax.ejb.EJB;
+import java.util.logging.Logger;
+
 import javax.ejb.Stateless;
+import javax.inject.Inject;
+import javax.persistence.EntityManager;
 
 import br.com.pjsistemas.app.siscompras.business.ProdutoBusiness;
-import br.com.pjsistemas.app.siscompras.dao.ProdutoDao;
 import br.com.pjsistemas.app.siscompras.model.Produto;
 
 /**
- * Implementação Business da entidade Pessoa.
+ * Implementação Business da entidade {@link Produto}.
  *
  */
 @Stateless
 public class ProbutoBusinessBean implements ProdutoBusiness {
 
-	@EJB
-	private ProdutoDao produtoDao;
+	@Inject
+	private EntityManager entityManager;
 
-	public void setProdutoDao(ProdutoDao produtoDao) {
-		this.produtoDao = produtoDao;
-	}
+	@Inject
+	private Logger log;
 
 	@Override
 	public void salvarProduto(Produto produto) {
-		produtoDao.salvarProduto(produto);
+		if(produto.isPersistido()) {
+			log.info("Alterando Produto: " + produto.getNome());
+			entityManager.merge(produto);
+		} else {
+			log.info("Incluindo Produto: " + produto.getNome());
+			entityManager.persist(produto);
+		}
 	}
 
 }

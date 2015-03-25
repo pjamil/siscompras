@@ -3,12 +3,14 @@
  */
 package br.com.pjsistemas.app.siscompras.facade;
 
+import java.util.List;
+
 import javax.ejb.Local;
 
 import br.com.pjsistemas.app.siscompras.model.Produto;
 
 /**
- * Facade para o ECU Manter Produtos.
+ * Interface local para a Facade do ECU Manter Produtos.
  *
  */
 @Local
@@ -19,4 +21,6 @@ public interface ManterProdutoFacade {
 	 * @param produto a ser salvo
 	 */
 	void salvarProduto(Produto produto);
+
+	List<Produto> selecionarProdutos();
 }

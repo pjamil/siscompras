@@ -36,7 +36,8 @@
                 <h:message for="itemMidia" errorClass="invalid" />
 
                 <h:outputLabel for="unidadeMedida" value="Unidade de Medida:" />
-                <h:inputText id="unidadeMedida" value="#{produtoNovo.unidadeMedida}" />
+                <h:selectOneListbox id="unidadeMedida" value="">
+                </h:selectOneListbox>  value="#{produtoNovo.unidadeMedida}" />
                 <h:message for="unidadeMedida" errorClass="invalid" />
 
                 <h:outputLabel for="fornecedores" value="Fornecedores:" />
@@ -104,7 +105,7 @@
             <p>
                 <h:panelGrid columns="2">
                     <h:commandButton id="salvarProdudo"
-                        action="#{memberController.register}"
+                        action="#{manterProdutoBean.salvar()}"
                         value="Salvar" styleClass="register" />
                     <h:messages styleClass="messages"
                         errorClass="invalid" infoClass="valid"
