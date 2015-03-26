@@ -1,6 +1,6 @@
 siscompras: Assortment of technologies including Arquillian
 ========================
-Author: Pete Muir
+Author: Pete Muir 
 Level: Intermediate
 Technologies: CDI, JSF, JPA, EJB, JPA, JAX-RS, BV
 Summary: An example that incorporates multiple technologies
@@ -9,6 +9,16 @@ Source: <https://github.com/jboss-jdf/jboss-as-quickstart/>
 
 What is it?
 -----------
+Sistema Gerencial de Compras
+A finalidade deste projeto é criar um sistema de informações para auxiliar no processo de compra, que permita um maior controle e gere informações gerenciais para dar apoio na tomada de decisão e para verificação do desempenho, dando maior agilidade e segurança ao processo de negócio
+
+- Possibilitar a identificação das características do produto a ser comprado através de especificação de compras.
+- Manter um cadastro de fornecedores, para identificar que oferece a melhor relação preço versus qualidade.
+- Criar um mecanismo que permita o registro e consulta das cotações de preços dos produtos.
+- Implementar um mecanismo que permita os registros de entrada das notas fiscais de compra, com intuito de manter histórico do movimento de compra por fornecedor, além de disponibilizar consultas do movimento de compras.
+- Implementar um mecanismo para registar os históricos de consumo dos produtos e calcular a média de consumo mensal.
+- Possibilitar o calculo do índice de desempenho CMV - Custo das Mercadorias Vendidas.
+- Manter registro da variação de preços dos produtos em um período.
 
 This is your project! It is a sample, deployable Maven 3 project to help you get your foot in the door developing with Java EE 6 on JBoss Enterprise Application Platform 6 or JBoss AS 7. 
 
